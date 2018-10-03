@@ -3,4 +3,6 @@
     <string name="user_name_text">Username</string>
     <string name="password_text">Password</string>
     <string name="login_text">Login</string>
+    <string name="signup_text">Sign up</string>
+    <string name="loading_text">Loading</string>
 </resources>
