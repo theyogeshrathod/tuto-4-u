@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/user_name_text"
-            android:textSize="@dimen/user_name"
+            android:textSize="@dimen/user_name_text_size"
             android:textStyle="bold" />
 
         <EditText
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/password_text"
-            android:textSize="@dimen/password"
+            android:textSize="@dimen/password_text_size"
             android:textStyle="bold" />
 
         <EditText
@@ -64,6 +64,5 @@
             android:text="@string/login_text" />
 
     </LinearLayout>
-
 
 </LinearLayout>
