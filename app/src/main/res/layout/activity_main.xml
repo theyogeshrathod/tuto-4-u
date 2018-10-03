@@ -24,7 +24,6 @@
             android:id="@+id/user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:inputType="text" />
 
     </LinearLayout>
@@ -45,7 +44,6 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:inputType="textPassword" />
 
     </LinearLayout>
