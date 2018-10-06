@@ -1,28 +1,25 @@
 package com.coolapps.yo.tuto4u;
 
-import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.coolapps.yo.tuto4u.com.coolapps.yo.tuto4u.util.TutoTextUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends BaseActivity {
+public class RegisterActivity extends BaseActivity {
     private FirebaseAuth mAuth;
 
-    private Button mSignUpButton;
-    private Button mSignInButton;
     private EditText mEmailEditText;
     private EditText mPasswordEditText;
+    private Button mSubmitButton;
 
-    private View.OnClickListener mSignInClickListener = new View.OnClickListener() {
+    private View.OnClickListener mSignUpClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             CharSequence email = mEmailEditText.getText();
@@ -37,55 +34,47 @@ public class MainActivity extends BaseActivity {
                 String emailString = email.toString().trim().toLowerCase();
                 String passwordString = password.toString();
 
-                hideKeyboard(v);
                 showProgressDialog();
 
-                mAuth.signInWithEmailAndPassword(emailString, passwordString)
-                        .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                mAuth.createUserWithEmailAndPassword(emailString, passwordString)
+                        .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(MainActivity.this, "Sign in successful", Toast.LENGTH_SHORT).show();
-                                    startActivity(HomeActivity.class);
-
+                                    Toast.makeText(RegisterActivity.this, "Sign up successful", Toast.LENGTH_SHORT).show();
+                                    finish();
                                 } else {
-                                    Toast.makeText(MainActivity.this, "Sign in failed", Toast.LENGTH_SHORT).show();
+                                    Exception e = task.getException();
+                                    if (e != null) {
+                                        Toast.makeText(RegisterActivity.this, "Sign up failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(RegisterActivity.this, "Sign up failed: ", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 hideProgressDialog();
                             }
                         });
+
             } else {
-                Toast.makeText(MainActivity.this, "Username or password should not be empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "Username or password should not be empty", Toast.LENGTH_SHORT).show();
             }
         }
     };
 
-    private View.OnClickListener mSignUpClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            startActivity(RegisterActivity.class);
-        }
-    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_register);
 
         mAuth = FirebaseAuth.getInstance();
 
-        mSignUpButton = findViewById(R.id.sign_up);
-        mSignUpButton.setOnClickListener(mSignUpClickListener);
-
-        mSignInButton = findViewById(R.id.sign_in);
-        mSignInButton.setOnClickListener(mSignInClickListener);
-
         mEmailEditText = findViewById(R.id.user_name);
         mPasswordEditText = findViewById(R.id.password);
-    }
 
-    private void startActivity(Class clazz) {
-        Intent intent = new Intent(this, clazz);
-        startActivity(intent);
+        mSubmitButton = findViewById(R.id.submit);
+        mSubmitButton.setOnClickListener(mSignUpClickListener);
     }
 }
