@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "166348182960",
+    "firebase_url": "https://tuto-4-u.firebaseio.com",
+    "project_id": "tuto-4-u",
+    "storage_bucket": "tuto-4-u.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:166348182960:android:4ac5bf44e6e162e9",
+        "android_client_info": {
+          "package_name": "com.coolapps.yo.tuto4u"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "166348182960-8kd7evosl2qhnpkgqjji6sulc0qup92o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.coolapps.yo.tuto4u",
+            "certificate_hash": "701e279a952e57d55ad1742ac4c3a5230fe102e4"
+          }
+        },
+        {
+          "client_id": "166348182960-0hcc5rntfq3220hil6vcvvpljn2d4apc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDytJHSpmK3y3T7DPEedlqkyP6J_OYe4kk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "166348182960-0hcc5rntfq3220hil6vcvvpljn2d4apc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
