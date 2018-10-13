@@ -24,7 +24,7 @@ public class HomeActivity extends BaseActivity {
         }
 
         mockTutorRecycler = findViewById(R.id.mock_tutor_recyclerView);
-        MockTutor tutorList = new MockTutor(info);
+        TutorAdapter tutorList = new TutorAdapter(info);
         mockTutorRecycler.setAdapter(tutorList);
         mockTutorRecycler.setLayoutManager(new LinearLayoutManager(this));
     }

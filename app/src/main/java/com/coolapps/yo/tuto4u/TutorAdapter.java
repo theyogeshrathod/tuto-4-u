@@ -10,27 +10,27 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class MockTutor extends RecyclerView.Adapter<MockTutor.ViewHolder> {
+public class TutorAdapter extends RecyclerView.Adapter<TutorAdapter.ViewHolder> {
 
     private List<TutorData> tutorData;
 
-    public MockTutor(List<TutorData> data) {
+    public TutorAdapter(List<TutorData> data) {
         tutorData = data;
     }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view  = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.activity_mock_tutor,
+        View view  = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.tutor_item_layout,
                 viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder TutorViewHolder, int i) {
         TutorData tutor = tutorData.get(i);
-        holder.text1.setText(tutor.getText1());
-        holder.text2.setText(tutor.getText2());
-        holder.image.setImageResource(tutor.getImage());
+        TutorViewHolder.text1.setText(tutor.getText1());
+        TutorViewHolder.text2.setText(tutor.getText2());
+        TutorViewHolder.image.setImageResource(tutor.getImage());
     }
 
     @Override
