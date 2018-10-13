@@ -1,6 +1,7 @@
 package com.coolapps.yo.tuto4u;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.view.View;
@@ -13,9 +14,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends BaseActivity {
-    private FirebaseAuth mAuth;
+public class LoginActivity extends BaseActivity {
+    private FirebaseAuth mFirebaseAuth = FirebaseManager.getFirebaseAuth();
 
     private Button mSignUpButton;
     private Button mSignInButton;
@@ -34,28 +36,35 @@ public class MainActivity extends BaseActivity {
             hideKeyboard(v);
 
             if (TutoTextUtils.isNonEmpty(email) && TutoTextUtils.isNonEmpty(password)) {
-                String emailString = email.toString().trim().toLowerCase();
+                final String emailString = email.toString().trim().toLowerCase();
                 String passwordString = password.toString();
 
                 hideKeyboard(v);
                 showProgressDialog();
 
-                mAuth.signInWithEmailAndPassword(emailString, passwordString)
-                        .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                mFirebaseAuth.signInWithEmailAndPassword(emailString, passwordString)
+                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(MainActivity.this, "Sign in successful", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "Sign in successful", Toast.LENGTH_SHORT).show();
+
+                                    SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+                                    SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
+                                    prefsEditor.putString(TutoConstants.LOGGED_IN_USER, emailString);
+                                    prefsEditor.apply();
+
                                     startActivity(HomeActivity.class);
+                                    finish();
 
                                 } else {
-                                    Toast.makeText(MainActivity.this, "Sign in failed", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "Sign in failed", Toast.LENGTH_SHORT).show();
                                 }
                                 hideProgressDialog();
                             }
                         });
             } else {
-                Toast.makeText(MainActivity.this, "Username or password should not be empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Username or password should not be empty", Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -70,9 +79,20 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        mAuth = FirebaseAuth.getInstance();
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+
+        FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+        if (firebaseUser != null) {
+            String firebaseUserEmail = firebaseUser.getEmail();
+            if (firebaseUserEmail != null &&
+                    firebaseUserEmail.equals(sharedPreferences.getString(TutoConstants.LOGGED_IN_USER, null))) {
+                startActivity(HomeActivity.class);
+                finish();
+            }
+        }
+
+        setContentView(R.layout.activity_login);
 
         mSignUpButton = findViewById(R.id.sign_up);
         mSignUpButton.setOnClickListener(mSignUpClickListener);
