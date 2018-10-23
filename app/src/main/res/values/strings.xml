@@ -7,4 +7,6 @@
     <string name="loading_text">Loading</string>
     <string name="submit_text">Submit</string>
     <string name="register_text">Register</string>
+    <string name="find_tutor_who_best_suits_you_text">Find the tutor who best suits your need.</string>
+    <string name="find_tutor_details_text">Find the tutor details below.</string>
 </resources>

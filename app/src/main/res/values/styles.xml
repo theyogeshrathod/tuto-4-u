@@ -8,4 +8,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TutoTextStyle" >
+        <item name="android:textSize">@dimen/tuto_text_size</item>
+    </style>
+
+    <style name="FindTutorTextStyle">
+        <item name="android:textSize">@dimen/tuto_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/findTutoColor</item>
+    </style>
+
 </resources>
